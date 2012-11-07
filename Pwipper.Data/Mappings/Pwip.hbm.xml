@@ -1,0 +1,15 @@
+﻿<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Pwipper.Core"
+                   namespace="Pwipper.Core.Domain">
+
+  <class name="Pwip" table="Pwips">
+    <id name="Id" type="Int64">
+      <generator class="hilo"/>
+    </id>
+
+    <property name="Time" not-null="true" type="datetime2" />
+    <property name="Text" not-null="true"/>
+    <many-to-one name="Author" class="User" column="UserId" not-null="true"/>
+
+  </class>
+</hibernate-mapping>

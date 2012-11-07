@@ -1,0 +1,103 @@
+﻿@model Pwipper.Models.HomeModel
+
+@{
+    ViewBag.Title = "Pwipper - just like that other thang";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section head {
+    <link href="@Url.Content("~/Content/Home.less")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/moment.min.js")" type="text/javascript"></script>
+}
+
+<div>
+    
+<div class="centerContainer">
+    
+    <div class="userBar"><span>@Model.UserName</span></div>
+
+    <div class="leftContainer">
+        <div class="postDialog">
+            <div class="postHeading">Post a pwip:</div>
+            <form action="@Url.Action("Post")" method="POST">
+                <textarea name="text" class="text"></textarea>
+                <input class="submit" type="submit" value="Pwip!"/>
+                <div style="clear: both"></div>
+            </form>
+        </div>
+    </div>
+
+    <div class="feedList">
+        <div class="feedHeading">Recent pwips</div>
+
+        @{
+            Html.RenderPartial("Pwips", Model);   
+        }
+    </div>
+
+</div> <!-- centerContainer -->
+
+<div class="topBar">
+    <span class="name">Pwipper</span>
+</div>
+
+</div> <!--main div-->
+
+<script type="text/javascript">
+    "use strict";
+
+    moment.relativeTime = {
+        future: "in %s",
+        past: "%s ago",
+        s: "now",
+        m: "1m",
+        mm: "%dm",
+        h: "1h",
+        hh: "%dh",
+        d: "1d",
+        dd: "%dd",
+        M: "1m",
+        MM: "%dm",
+        y: "1y",
+        yy: "%dy"
+    };
+
+    $(document).ready(function () {
+        var updateFeedItems = function (container) {
+            var utcNow = moment.utc();
+            $('.time', container).each(function () {
+                var timestr = ($(this).data('time'));
+                $(this).text(moment.utc(timestr).from(utcNow, true));
+            });
+
+            $('.delete', container).on('click', function () {
+                var feedItem = $(this).closest('.feedItem');
+                var id = feedItem.data('id');
+                $.post('@Url.Action("Delete")', { id: id });
+                feedItem.css('min-height', '0').slideUp('slow').find('.delete').remove();
+            });
+        };
+
+        updateFeedItems($('.feedList'));
+
+        $('.postDialog textarea').on('focus', function () {
+            console.log(this);
+            $(this).animate({ height: '5em' });
+        });
+
+        $(window).on('scroll', function () {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                $.get(
+                    '@Url.Action("Partial")',
+                    {
+                        start: $('.feedList .feedItem:last-child').data('id')
+                    },
+                    function (html) {
+                        var container = $(html);
+                        updateFeedItems(container);
+                        $(".feedList").append(container);
+                    });
+            }
+        });
+    });
+</script>

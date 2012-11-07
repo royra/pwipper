@@ -1,0 +1,197 @@
+﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,800);
+
+@contentWidth: 830px;
+@leftContainerWidth: 300px;
+@rightContainerWidth: 500px;
+@faintBlack: rgba(0,0,0,.1);
+
+html {
+	height: 100%;
+}
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	padding-top: 40px;
+	background-image: url(/images/back_pattern.png);
+	background-repeat: repeat;
+	background-attachment: fixed;
+	height: 100%;
+	z-index: -1;
+
+	>div {
+		padding-top: 20px;
+		background-image: url(/images/sean_connery_james_bond1.png);
+		background-repeat: repeat;
+		background-attachment: fixed;
+		background-position: center;
+		background-size: auto 400px;
+	}
+}
+
+.blueGradient {
+	background: rgb(122,188,255); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(122,188,255,1) 0%, rgba(96,171,248,1) 44%, rgba(64,150,238,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(122,188,255,1)), color-stop(44%,rgba(96,171,248,1)), color-stop(100%,rgba(64,150,238,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(122,188,255,1) 0%,rgba(96,171,248,1) 44%,rgba(64,150,238,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=0 ); /* IE6-9 */
+}
+
+.topBar {
+	.blueGradient;
+	background-repeat: repeat;
+	height: 40px;
+	line-height: 40px;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+	z-index: 10;
+
+	.name {
+		width: @contentWidth;
+		text-align: left;
+		display: inline-block;
+	}
+}
+
+.border {
+	border: 1px solid rgba(0,0,0,.1);
+	border-radius: 6px;
+}
+
+.box {
+	.border;
+	background-color: white;
+}
+
+.centerContainer {
+	display: table;
+	width: @contentWidth;
+	margin: 0 auto;
+	text-align: center;
+
+	>div { text-align: left; }
+
+	.userBar {
+		.box;
+		width: @contentWidth;
+		margin: 0 auto 20px auto;
+		border: 1px solid @faintBlack;
+		border-radius: 6px;
+		text-align: center;
+		font-size: 25px;
+		padding: 10px 0;
+	}
+
+	.heading {
+		font-size: 18px;
+		font-weight: bold;
+	}
+
+	.leftContainer {
+		width: @leftContainerWidth;
+		height: 200px;
+		float: left;
+
+		.postDialog {
+			.box;
+			width: 100%;
+
+			.postHeading { 
+				.heading; 
+				padding: 15px 15px;
+			}
+
+			form {
+				margin: 0 15px;
+
+				textarea {
+					width: 260px;
+					height: 2em;
+					display: inline-block;
+					min-height: 1em;
+				}
+				
+				.submit {
+					display: inline-block;
+					float: right;
+					margin: 12px 3px;
+					height: 30px;
+					.blueGradient;
+					.border;
+				}
+			}
+
+
+		}
+	}
+
+	.feedList {
+		.box;
+		float: right;
+		width: @rightContainerWidth;
+		margin: 0 auto;
+		padding: 0;
+		display: inline-block;
+
+		>* {
+			padding: 15px 15px;
+			&:not(last-child) {
+				border-bottom: 1px solid @faintBlack;
+			}
+		}
+
+		.feedHeading { .heading; }
+
+		.feedItem {
+			position: relative;
+
+			&div,div{
+				display: inline-block;
+			}
+
+			@imageWidth: 40px;
+			@imagePaddingRight: 20px;
+			@imagePaddingLeft: 20px;
+			min-height: 50px;
+			padding-left: 15px+@imageWidth+@imagePaddingRight;
+			background-image: url(/images/sean_connery_james_bond.jpg);
+			background-size: @imageWidth auto;
+			background-repeat: no-repeat;
+			background-position: @imagePaddingLeft;
+
+			.text {
+				width: 300px;
+			}
+
+			.time {
+				font-size: 12px;
+				color: gray;
+				float: right;
+			}
+
+			.delete { display: none; }
+
+			&:hover .delete {
+				display: inherit;
+				cursor: pointer;
+				width: 10px;
+				height: 10px;
+				text-align: center;
+				line-height: 10px;
+				float: right;
+				position: absolute;
+				bottom: 15px;
+				right: 16px;
+			}
+		}
+	}
+}
+
+
