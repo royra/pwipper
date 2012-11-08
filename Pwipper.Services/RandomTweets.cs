@@ -52,17 +52,7 @@ namespace Pwipper.Services
                     var response = wc.DownloadString(url);
                     var ar = JArray.Parse(response);
                     //
-                    var texts = ar.Select(o =>
-                                              {
-                                                  var text = (string) o["text"];
-                                                  var timeStr = (string) o["created_at"];
-                                                  var time = string.IsNullOrEmpty(timeStr)
-                                                      ? null
-                                                      : (DateTime?)DateTime.ParseExact(timeStr, "ddd MMM dd HH:mm:ss zzz yyyy", CultureInfo.InvariantCulture);
-
-                                                  return new Tweet {Text = text, Time = time};
-                                              }
-                        );
+                    var texts = ar.Select(ParseTweet);
                     
                     foreach (var t in texts)
                         yield return t;
@@ -70,6 +60,17 @@ namespace Pwipper.Services
                     currentId = (long)ar[ar.Count - 1]["id"];
                 }
             }
+        }
+
+        private static Tweet ParseTweet(JToken o)
+        {
+            var text = (string) o["text"];
+            var timeStr = (string) o["created_at"];
+            var time = string.IsNullOrEmpty(timeStr) 
+                ? null 
+                : (DateTime?) DateTimeOffset.ParseExact(timeStr, "ddd MMM dd HH:mm:ss zzz yyyy", CultureInfo.InvariantCulture).DateTime;
+
+            return new Tweet {Text = text, Time = time};
         }
     }
 }

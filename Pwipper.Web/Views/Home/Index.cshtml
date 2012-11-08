@@ -67,7 +67,8 @@
             var utcNow = moment.utc();
             $('.time', container).each(function () {
                 var timestr = ($(this).data('time'));
-                $(this).text(moment.utc(timestr).from(utcNow, true));
+                var time = moment.utc(timestr, 'YYYY-MM-DD hh:mm:ss');
+                $(this).text(time.from(utcNow, true));
             });
 
             $('.delete', container).on('click', function () {
@@ -81,8 +82,13 @@
         updateFeedItems($('.feedList'));
 
         $('.postDialog textarea').on('focus', function () {
-            console.log(this);
             $(this).animate({ height: '5em' });
+        });
+
+        $('.postDialog textarea').on('blur', function () {
+            if ($(this).val().trim() == '') {
+                $(this).animate({ height: '2em' });
+            }
         });
 
         $(window).on('scroll', function () {
