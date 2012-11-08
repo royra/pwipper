@@ -3,7 +3,6 @@
       recreateSchema="true"
       connectionString="Data Source=localhost;Initial Catalog=Pwipper;Integrated Security=SSPI"
       maxPwipsPerQuery="10"
-      randomTweetsBatchSize="30"
       >
 
   <RandomTweets

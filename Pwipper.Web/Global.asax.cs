@@ -66,7 +66,7 @@ namespace Pwipper
             fillDatabaseUtils.EnsureUser();
 
             log.Debug("ensuring posts");
-            fillDatabaseUtils.EnsurePosts(50);
+            fillDatabaseUtils.EnsurePosts(300);
 
             log.Debug("Application_Start ending");
         }
