@@ -67,7 +67,7 @@
             var utcNow = moment.utc();
             $('.time', container).each(function () {
                 var timestr = ($(this).data('time'));
-                var time = moment.utc(timestr, 'YYYY-MM-DD hh:mm:ss');
+                var time = moment.utc(timestr, 'YYYY-MM-DD HH:mm:ss');
                 $(this).text(time.from(utcNow, true));
             });
 

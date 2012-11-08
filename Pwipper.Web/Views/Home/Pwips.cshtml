@@ -3,7 +3,7 @@
 @foreach(var p in Model.Pwips)
 {
     <div class="feedItem" data-id="@p.Id">
-        <div class="time" data-time="@p.Time"></div>
+        <div class="time" data-time="@p.Time.ToString("yyyy-MM-dd HH:mm:ss")"></div>
         <div class="text">@p.Text</div>
         <a class="delete" title="Delete this post"><img src="@Url.Content("~/images/trash.png")" alt="" height="12" width="12"/></a>
     </div>
